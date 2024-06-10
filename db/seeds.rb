@@ -7,3 +7,8 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+Card.create([
+  { name: 'LeBron James', image: 'lebron.jpg' },
+  { name: 'Stephen Curry', image: 'curry.jpg' },
+  { name: 'Kevin Durant', image: 'durant.jpg' },
+])

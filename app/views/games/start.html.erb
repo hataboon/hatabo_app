@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>レッツ神経衰弱</h1>
+  <div class='game-board'>
+    <% @cards.each do |card| %>
+      <div class='card'>
+        <%= image_tag card.image.url if card.image.present? %>
+      </div>
+    <% end %>
+  </div>
+  <%= link_to 'Back to Home', root_path, class: 'button' %>
+</div>
