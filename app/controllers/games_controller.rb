@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   def start
-    @cards = Card.all.shuffle
+    game_service = SinsuiService.new
+    @cards = game_service.cards
   end
 end
