@@ -1,4 +1,4 @@
-class PlayerCard < ApplicationRecord
+class PlayerCard
   attr_accessor :name, :image_path, :flipped
 
   def initialize(name, image_path)
