@@ -1,13 +1,10 @@
-<div class="flex justify-center">
+<div class="flex justify-center items-center min-h-screen bg-back_image bg-cover bg-center pt-40">
   <div class="card w-100 bg-base-50 shadow-xl ">
-    <figure class="px-10 pt-10">
-      <%= image_tag asset_path('top/top_image.png'), class: "rounded-xl" %>
-    </figure>
     <div class="card-body items-center text-center">
-      <h1 class="card-title text-5xl">NBA CARD MATCH</h1>
-      <p>NBA好きによるNBA好きのための神経衰弱</p>
+      <h1 class="card-title text-7xl text-white">NBA CARD MATCH</h1>
+      <p class="text-white text-2xl">NBA好きによるNBA好きのための神経衰弱</p>
       <div class="card-actions">
-        <%= link_to 'START GAME', start_game_path,class: "btn btn-primary" %>
+        <%= link_to 'GAME', start_game_path,class: "btn btn-primary" %>
       </div>
     </div>
   </div>
