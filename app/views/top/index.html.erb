@@ -1,10 +1,10 @@
 <div class="flex justify-center">
-  <div class="card w-96 bg-base-50 shadow-xl ">
+  <div class="card w-100 bg-base-50 shadow-xl ">
     <figure class="px-10 pt-10">
-      <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" class="rounded-xl" />
+      <%= image_tag asset_path('top/top_image.png'), class: "rounded-xl" %>
     </figure>
     <div class="card-body items-center text-center">
-      <h5 class="card-title">Shoes!</h5>
+      <h1 class="card-title text-5xl">NBA CARD MATCH</h1>
       <p>NBA好きによるNBA好きのための神経衰弱</p>
       <div class="card-actions">
         <%= link_to 'START GAME', start_game_path,class: "btn btn-primary" %>
