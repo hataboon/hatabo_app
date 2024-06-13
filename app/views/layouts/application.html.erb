@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>NBA CARD MATCH</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+  <head>
+    <title>NBA CARD MATCH</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
-  <!-- <link rel="preload" href="<%= asset_path('application.css') %>" as="style"> -->
-  <!-- <link rel="preload" href="<%= asset_path('application.js') %>" as="script"> -->
-</head>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <!-- コメントアウト -->
+    <!-- <link rel="preload" href="<%= asset_path('application.css') %>" as="style"> -->
+    <!-- <link rel="preload" href="<%= asset_path('application.js') %>" as="script"> -->
+  </head>
 
-<body class="bg-back_image bg-cover bg-center min-h-screen">
-  <%= yield %>
-</body>
+  <body class="bg-back_image bg-cover bg-center min-h-screen">
+    <%= yield %>
+  </body>
 </html>
+
