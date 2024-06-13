@@ -10,10 +10,10 @@
   <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   <!-- <link rel="preload" href="<%= asset_path('application.css') %>" as="style"> -->
   <!-- <link rel="preload" href="<%= asset_path('application.js') %>" as="script"> -->
-
-  <!-- パス確認用のコード -->
-  <!-- <p>JS Asset Path: <%= asset_path('application.js') %></p> -->
-  <!-- <p>CSS Asset Path: <%= asset_path('application.css') %></p> -->
+  <script>
+    console.log("JS Asset Path: <%= asset_path('application.js') %>");
+    console.log("CSS Asset Path: <%= asset_path('application.css') %>");
+  </script>
 </head>
 
 <body class="bg-back_image bg-cover bg-center min-h-screen">
