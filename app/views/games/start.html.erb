@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
   <meta name="csrf-token" content="<%= form_authenticity_token %>">
 </head>
-<body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover" style="background-image:url('https://source.unsplash.com/1L71sPT5XKc');">
+<body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover" style="background-image:url('<%= asset_path('back_image2.jpg') %>');">
   <div class="container mx-auto p-4">
     <h1 class="text-3xl font-bold text-center mb-4">レッツ神経衰弱</h1>
     <div id="flash-message" class="hidden bg-green-500 text-white text-center py-2 px-4 rounded mb-4"></div>
