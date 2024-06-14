@@ -15,7 +15,7 @@ class SinsuiService
     player_images.each do |image_path|
       name = File.basename(image_path, '.png')
       2.times do
-        @cards << PlayerCard.new(name,"#{name}.png")
+        @cards << { name: name, image_path: "#{name}.png" }
       end
     end
   end

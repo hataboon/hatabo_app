@@ -48,12 +48,12 @@
         flashMessage.classList.add('hidden');
       }, 3000);
     }
-  
+
     function flipCard(card, cardData) {
       card.innerHTML = `<img src="/assets/nba/${cardData.image_path}" alt="${cardData.name}" class="w-full h-full object-cover">`;
       card.classList.add('flipped');
     }
-  
+
     function unflipCards(firstCard, secondCard, backImage) {
       setTimeout(() => {
         console.log('Unflipping cards:', firstCard, secondCard);
@@ -64,16 +64,24 @@
         lockBoard = false;
       }, 1000);
     }
-  
+
     function resetGame() {
       matchedCards = 0;
+      shuffleCards();
       cards.forEach(card => {
         card.innerHTML = `<img src="/assets/card-back.png" alt="Card Back" class="w-full h-full object-cover">`;
         card.classList.remove('flipped');
       });
       lockBoard = false;
     }
-  
+
+    function shuffleCards() {
+      const gameBoard = document.querySelector('.game-board');
+      for (let i = gameBoard.children.length; i >= 0; i--) {
+        gameBoard.appendChild(gameBoard.children[Math.random() * i | 0]);
+      }
+    }
+
     function checkAllCardsMatched() {
       if (matchedCards === cards.length) {
         setTimeout(() => {
@@ -82,11 +90,11 @@
         }, 500);
       }
     }
-  
+
     cards.forEach(card => {
       console.log('Card element:', card);
       console.log('Data-card attribute:', card.dataset.card);
-  
+
       card.addEventListener('click', () => {
         if (lockBoard || card.classList.contains('flipped')) return;
 
@@ -94,23 +102,23 @@
           console.error('Card data attribute is undefined:', card);
           return;
         }
-  
+
         const cardData = JSON.parse(card.dataset.card);
         console.log('Card clicked:', cardData);
-  
+
         if (!cardData) {
           console.error('Card data is undefined');
           return;
         }
-  
+
         flipCard(card, cardData);
-  
+
         if (!firstCard) {
           firstCard = { element: card, data: cardData };
         } else {
           secondCard = { element: card, data: cardData };
           lockBoard = true;
-  
+
           fetch('/games/flip', {
             method: 'POST',
             headers: {
