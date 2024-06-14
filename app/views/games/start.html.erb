@@ -28,93 +28,101 @@
   </div>
 
   <script>
-  document.addEventListener('turbo:load', () => {
-    console.log('DOM fully loaded and parsed');
-    const cards = document.querySelectorAll('.card');
-    let firstCard, secondCard;
-    let lockBoard = false;
-    let matchedCards = 0;
+    document.addEventListener('turbo:load', () => {
+      console.log('DOM fully loaded and parsed');
+      const cards = document.querySelectorAll('.card');
+      let firstCard, secondCard;
+      let lockBoard = false;
+      let matchedCards = 0;
 
-    function flipCard(card, cardData) {
-      card.innerHTML = `<img src="/assets/nba/${cardData.image_path}" alt="${cardData.name}" class="w-full h-full object-cover">`;
-      card.classList.add('flipped');
-    }
-
-    function unflipCards(firstCard, secondCard, backImage) {
-      setTimeout(() => {
-        console.log('Unflipping cards:', firstCard, secondCard);
-        firstCard.innerHTML = `<img src="${backImage}" alt="Card Back" class="w-full h-full object-cover">`;
-        secondCard.innerHTML = `<img src="${backImage}" alt="Card Back" class="w-full h-full object-cover">`;
-        firstCard.classList.remove('flipped');
-        secondCard.classList.remove('flipped');
-        lockBoard = false;
-      }, 1000);
-    }
-
-    function checkAllCardsMatched() {
-      if (matchedCards === cards.length) {
-        setTimeout(() => {
-          alert('おめでとうございます！すべてのカードが一致しました！');
-          cards.forEach(card => {
-            card.innerHTML = `<img src="/assets/card-back.png" alt="Card Back" class="w-full h-full object-cover">`;
-            card.classList.remove('flipped');
-          });
-        }, 500);
+      function flipCard(card, cardData) {
+        card.innerHTML = `<img src="/assets/nba/${cardData.image_path}" alt="${cardData.name}" class="w-full h-full object-cover">`;
+        card.classList.add('flipped');
       }
-    }
 
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        if (lockBoard || card.classList.contains('flipped')) return;
+      function unflipCards(firstCard, secondCard, backImage) {
+        setTimeout(() => {
+          console.log('Unflipping cards:', firstCard, secondCard);
+          firstCard.innerHTML = `<img src="${backImage}" alt="Card Back" class="w-full h-full object-cover">`;
+          secondCard.innerHTML = `<img src="${backImage}" alt="Card Back" class="w-full h-full object-cover">`;
+          firstCard.classList.remove('flipped');
+          secondCard.classList.remove('flipped');
+          lockBoard = false;
+        }, 1000);
+      }
 
-        const cardData = JSON.parse(card.dataset.card);
-        console.log('Card clicked:', cardData);
-
-        flipCard(card, cardData);
-
-        if (!firstCard) {
-          firstCard = { element: card, data: cardData };
-        } else {
-          secondCard = { element: card, data: cardData };
-          lockBoard = true;
-
-          fetch('/games/flip', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
-            },
-            body: JSON.stringify({ first_card: firstCard.data, second_card: secondCard.data })
-          })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.json();
-          })
-          .then(data => {
-            console.log('Response data:', data);
-            if (data.match) {
-              console.log("Match!");
-              matchedCards += 2;
-              firstCard = secondCard = null;
-              lockBoard = false;
-              checkAllCardsMatched();
-            } else {
-              console.log("No Match!");
-              unflipCards(firstCard.element, secondCard.element, data.back_image);
-              firstCard = secondCard = null;
-            }
-          })
-          .catch(error => {
-            console.error('Error:', error);
-            lockBoard = false;
-            firstCard = secondCard = null;
-          });
+      function checkAllCardsMatched() {
+        if (matchedCards === cards.length) {
+          setTimeout(() => {
+            alert('おめでとうございます！すべてのカードが一致しました！');
+            cards.forEach(card => {
+              card.innerHTML = `<img src="/assets/card-back.png" alt="Card Back" class="w-full h-full object-cover">`;
+              card.classList.remove('flipped');
+            });
+          }, 500);
         }
+      }
+
+      cards.forEach(card => {
+        console.log('Card element:', card);
+        console.log('Data-card attribute:', card.dataset.card);
+
+        card.addEventListener('click', () => {
+          if (lockBoard || card.classList.contains('flipped')) return;
+
+          const cardData = JSON.parse(card.dataset.card);
+          console.log('Card clicked:', cardData);
+
+          if (!cardData) {
+            console.error('Card data is undefined');
+            return;
+          }
+
+          flipCard(card, cardData);
+
+          if (!firstCard) {
+            firstCard = { element: card, data: cardData };
+          } else {
+            secondCard = { element: card, data: cardData };
+            lockBoard = true;
+
+            fetch('/games/flip', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
+              },
+              body: JSON.stringify({ first_card: firstCard.data, second_card: secondCard.data })
+            })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(data => {
+              console.log('Response data:', data);
+              if (data.match) {
+                console.log("Match!");
+                matchedCards += 2;
+                firstCard = secondCard = null;
+                lockBoard = false;
+                checkAllCardsMatched();
+              } else {
+                console.log("No Match!");
+                unflipCards(firstCard.element, secondCard.element, data.back_image);
+                firstCard = secondCard = null;
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              lockBoard = false;
+              firstCard = secondCard = null;
+            });
+          }
+        });
       });
     });
-  });
   </script>
 </body>
 </html>
