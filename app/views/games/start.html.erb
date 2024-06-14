@@ -29,17 +29,17 @@
 
   <script>
   document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM fully loaded and parsed');
     const cards = document.querySelectorAll('.card');
     let firstCard, secondCard;
     let lockBoard = false;
     let matchedCards = 0;
-  
+
     function flipCard(card, cardData) {
       card.innerHTML = `<img src="/assets/nba/${cardData.image_path}" alt="${cardData.name}" class="w-full h-full object-cover">`;
       card.classList.add('flipped');
-      console.log(`Flipped card: ${cardData.name}`);
     }
-  
+
     function unflipCards(firstCard, secondCard, backImage) {
       setTimeout(() => {
         console.log('Unflipping cards:', firstCard, secondCard);
@@ -50,7 +50,7 @@
         lockBoard = false;
       }, 1000);
     }
-  
+
     function checkAllCardsMatched() {
       if (matchedCards === cards.length) {
         setTimeout(() => {
@@ -62,23 +62,22 @@
         }, 500);
       }
     }
-  
+
     cards.forEach(card => {
       card.addEventListener('click', () => {
         if (lockBoard || card.classList.contains('flipped')) return;
-  
+
         const cardData = JSON.parse(card.dataset.card);
-        console.log('Card clicked:', cardData); // デバッグ用ログ
-  
+        console.log('Card clicked:', cardData);
+
         flipCard(card, cardData);
-  
+
         if (!firstCard) {
           firstCard = { element: card, data: cardData };
         } else {
           secondCard = { element: card, data: cardData };
           lockBoard = true;
-  
-          // サーバーにカードデータを送信
+
           fetch('/games/flip', {
             method: 'POST',
             headers: {
@@ -94,10 +93,10 @@
             return response.json();
           })
           .then(data => {
-            console.log('Response data:', data); // デバッグ用ログ
+            console.log('Response data:', data);
             if (data.match) {
               console.log("Match!");
-              matchedCards += 2; // マッチしたカードの数を増やす
+              matchedCards += 2;
               firstCard = secondCard = null;
               lockBoard = false;
               checkAllCardsMatched();
@@ -116,7 +115,6 @@
       });
     });
   });
-  
   </script>
 </body>
 </html>
