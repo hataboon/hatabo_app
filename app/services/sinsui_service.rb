@@ -4,8 +4,8 @@ class SinsuiService
   def initialize
     @cards = []
     load_cards
+    select_random_cards
     shuffle_cards
-    #card_pairs
   end
 
   private
@@ -16,9 +16,14 @@ class SinsuiService
       name = File.basename(image_path, '.*')
       extension = File.extname(image_path)
       2.times do
-        @cards << { name: name, image_path: "#{name}#{extension}" }
+        @cards << { name: name, image_path: "#{name}#{File.extname(image_path)}" }
       end
     end
+  end
+
+  def select_random_cards
+    selected_cards = @cards.sample(10)
+    @cards = selected_cards.flat_map { |card| [card, card.clone] }
   end
 
   def shuffle_cards

@@ -85,7 +85,7 @@
     function checkAllCardsMatched() {
       if (matchedCards === cards.length) {
         setTimeout(() => {
-          showFlashMessage('おめでとうございます！すべてのカードが一致しました！');
+          showFlashMessage('WIN!');
           resetGame();
         }, 500);
       }
@@ -155,6 +155,7 @@
         }
       });
     });
+    shuffleCards();
   });
   </script>
 </body>
