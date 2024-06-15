@@ -1,36 +1,29 @@
 class SinsuiService
-  attr_reader :cards
+  attr_reader :cards # cards属性を公開
 
   def initialize
-    @cards = []
-    load_cards
-    select_random_cards
-    shuffle_cards
+    @cards = [] # cards配列を初期化
+    load_cards # カードを読み込む
+    select_random_cards # ランダムにカードを選択
+    shuffle_cards # カードをシャッフル
   end
 
   private
 
   def load_cards
-    player_images = Dir.glob(Rails.root.join('app/assets/images/nba/*.{png,jpg}'))
+    player_images = Dir.glob(Rails.root.join('app/assets/images/nba/*.{png,jpg}')) # 画像ファイルを取得
     player_images.each do |image_path|
-      name = File.basename(image_path, '.*')
-      extension = File.extname(image_path)
-      2.times do
-        @cards << { name: name, image_path: "#{name}#{File.extname(image_path)}" }
-      end
+      name = File.basename(image_path, '.*') # 画像のファイル名を取得
+      @cards << PlayerCard.new(name, "#{name}#{File.extname(image_path)}") # PlayerCardオブジェクトを作成して配列に追加
     end
   end
 
   def select_random_cards
-    selected_cards = @cards.sample(10)
-    @cards = selected_cards.flat_map { |card| [card, card.clone] }
+    selected_cards = @cards.sample(10)  # 10種類のカードをランダムに選択
+    @cards = selected_cards.flat_map { |card| [card, card.clone] }  # それぞれのカードを2枚ずつにする
   end
 
   def shuffle_cards
-    @cards.shuffle!
+    @cards.shuffle! # カードをシャッフル
   end
-
-  # def card_pairs
-    # @cards.each do
-  # end
 end
