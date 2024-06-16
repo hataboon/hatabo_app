@@ -16,7 +16,7 @@
       <% if @cards.present? %>
         <% @cards.each do |card| %>
           <div class="card bg-gray-200 hover:bg-gray-300 cursor-pointer p-2 w-24 h-32 flex items-center justify-center" data-card='<%= card.to_json %>'>
-            <img src="<%= asset_path('card-back.png') %>" alt="Card Back" class="w-full h-full object-cover">
+            <img src="<%= asset_path('card-back.png') %>" alt="Card Back" class="w-full h-full object-scale-fill">
           </div>
         <% end %>
       <% else %>
