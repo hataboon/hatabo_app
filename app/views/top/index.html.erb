@@ -1,11 +1,28 @@
-<div class="flex flex-col justify-start items-center min-h-screen bg-back_image bg-cover bg-center pt-10">
-  <h1 class="card-title text-8xl text-white mb-8">NBA CARD COLLECTION</h1>
-  <p class="text-white text-2xl mb-24">神経衰弱でカードをコレクションしよう！</p>
-  <div class="card w-100 bg-base-50 shadow-xl" data-card='{}'>
-  <div class="card-body items-center text-center">
-    <div class="card-actions mt-16">
-      <a class="btn btn-primary" href="/games/start">GAME</a>
-      <a class="btn btn-primary">My COLLECTION</a>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>NBA CARD COLLECTION</title>
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+  <meta name="csrf-token" content="<%= form_authenticity_token %>">
+</head>
+<body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover bg-center" style="background-image:url('<%= asset_path('top_back/back_image.jpg') %>');">
+  <!-- トップ画面 -->
+  <div class="flex flex-col justify-start items-center min-h-screen bg-cover bg-center pt-10" style="background-image:url('<%= asset_path('top_back/back_image.jpg') %>');">
+    <h1 class="card-title text-4xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-10xl text-white mb-8 text-center font-bold">NBA CARD COLLECTION</h1>
+    <p class="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-24 text-center font-semibold">神経衰弱でカードをコレクションしよう！</p>
+    <div class="w-full max-w-xs md:max-w-md lg:max-w-lg">
+      <div class="card bg-base-50 shadow-xl p-4">
+        <div class="card-body items-center text-center">
+          <div class="card-actions mt-16 flex justify-center space-x-4">
+            <a class="btn btn-primary font-bold" href="/games/start">GAME</a>
+            <a class="btn btn-primary font-bold">My COLLECTION</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</body>
+</html>
