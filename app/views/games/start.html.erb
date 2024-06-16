@@ -7,6 +7,31 @@
   <title>神経衰弱ゲーム</title>
   <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
   <meta name="csrf-token" content="<%= form_authenticity_token %>">
+  <style>
+    .card {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      position: relative;
+    }
+    .card:hover {
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15), 0 20px 30px rgba(0, 0, 0, 0.15);
+    }
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+    .card .front, .card .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+    }
+    .card .back {
+      transform: rotateY(180deg);
+    }
+</style>
 </head>
 <body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover" style="background-image:url('<%= asset_path('back_image2.jpg') %>');">
   <div class="container mx-auto p-4 flex flex-col items-center justify-center min-h-screen">
