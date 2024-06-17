@@ -7,6 +7,13 @@
   <title>NBA CARD COLLECTION</title>
   <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
   <meta name="csrf-token" content="<%= form_authenticity_token %>">
+  <style>
+    :modal {
+      background-color: beige;
+      border: 2px solid burlywood;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover bg-center" style="background-image:url('<%= asset_path('top_back/back_image.jpg') %>');">
   <!-- トップ画面 -->
@@ -18,7 +25,7 @@
         <div class="card-body items-center text-center">
           <div class="card-actions mt-16 flex justify-center space-x-4">
             <a class="btn btn-primary font-bold" href="/games/start">GAME</a>
-            <a class="btn btn-primary font-bold">My COLLECTION</a>
+            <a id="myCollectionBtn" class="btn btn-primary font-bold">My COLLECTION</a>
           </div>
         </div>
       </div>
