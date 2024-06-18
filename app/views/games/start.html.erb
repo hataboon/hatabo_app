@@ -128,8 +128,10 @@
       shuffleCards(); // ランダムに配置する
     }
 
-    function checkAllCardsMatched() {  //  カード要素にクリックイベントリスナーを追加します。
-      if (matchedCards === cards.length) {
+    function checkAllCardsMatched() {  //  すべてのカードが一致したか確認する関数
+           
+      if (matchedCards === cards.length) {  // すべてのカードが一致したかどうかを確認します。
+// マッチしたカードのペア数をカウントする変数。カードの総数。
         setTimeout(() => {
           showFlashMessage('おめでとうございます！すべてのカードが一致しました！');
           resetGame();
