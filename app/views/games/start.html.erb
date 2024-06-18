@@ -170,47 +170,48 @@
         secondCard = { element: card, data: cardData };// 2枚目のカードの要素とデータを設定します。
         lockBoard = true;//ボードをロックします
 
-        fetch('/games/flip', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        fetch('/games/flip', {//サーバーにPOSTリクエストを送信します。
+          method: 'POST',//HTTPメソッドとしてPOSTを使用します。
+          headers: {//リクエストヘッダーを設定します
+            'Content-Type': 'application/json',//リクエストボディのコンテンツタイプをJSONに設定します。
             'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
-          },
-          body: JSON.stringify({ first_card: firstCard.data, second_card: secondCard.data })
-        })
-        .then(response => {
-          if (!response.ok) {
+          },// CSRFトークンを設定します。
+          body: JSON.stringify({ first_card: firstCard.data, second_card: secondCard.data })//リクエストボディにカードデータをJSON形式で設定します。
+        })//JavaScriptのオブジェクトをJSON文字列に変換します。
+        .then(response => {//リクエストが成功した場合の処理を設定します。
+          if (!response.ok) {//レスポンスが正常でない場合はエラーメッセージを表示します。
             throw new Error('Network response was not ok');
           }
-          return response.json();
+          return response.json();//レスポンスをJSON形式に変換します。
         })
-        .then(data => {
-          console.log('Response data:', data);
-          if (data.match) {
-            console.log("Match!");
-            matchedCards += 2;
-            firstCard = secondCard = null;
-            lockBoard = false;
-            checkAllCardsMatched();
+        .then(data => {//JSON形式のデータを受け取った後の処理を設定します。
+          console.log('Response data:', data);//レスポンスデータをコンソールに表示します。
+          if (data.match) {//カードが一致した場合の処理を設定します。
+            console.log("Match!");//一致したことをコンソールに表示します。
+            matchedCards += 2;//一致したカードの数を増やします。
+            firstCard = secondCard = null;//最初のカードと2枚目のカードをリセットします。
+            lockBoard = false;//ボードのロックを解除します。
+            checkAllCardsMatched();//すべてのカードが一致したかどうかを確認します。
           } else {
-            console.log("No Match!");
-            unflipCards(firstCard.element, secondCard.element, data.back_image);
+            console.log("No Match!");//一致しなかったことをコンソールに表示します。
+            unflipCards(firstCard.element, secondCard.element, data.back_image);//カードを元に戻す関数を呼び出します。
             firstCard = secondCard = null;
           }
         })
-        .catch(error => {
-          console.error('Error:', error);
-          lockBoard = false;
+        .catch(error => {//リクエストが失敗した場合のエラーハンドリングを設定します。
+          console.error('Error:', error);//エラーメッセージをコンソールに表示します。
+          lockBoard = false;//ボードのロックを解除します。
           firstCard = secondCard = null;
         });
       }
     }
 
-    cards.forEach(card => {
-      console.log('Card element:', card);
-      console.log('Data-card attribute:', card.dataset.card);
-      card.addEventListener('click', handleCardClick);
-    });
+    cards.forEach(card => {//すべてのカードに対してクリックイベントリスナーを設定します。
+    //forEach: 配列の各要素に対して指定した関数を実行します。//card: 各カード要素。
+      console.log('Card element:', card);//カード要素をコンソールに表示します。
+      console.log('Data-card attribute:', card.dataset.card);//カードのデータ属性をコンソールに表示します。
+      card.addEventListener('click', handleCardClick);//カード要素にクリックイベントリスナーを追加します。
+    });//addEventListener: イベントリスナーを追加します。//click': クリックイベント。//クリックイベントが発生したときに実行する関数。
   });
   </script>
 </body>
