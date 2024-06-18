@@ -53,8 +53,8 @@
   </div>
 
   <script>
-  document.addEventListener('turbo:load', () => {
-    console.log('DOM fully loaded and parsed');
+  document.addEventListener('turbo:load', () => {//ページのDOMが完全に読み込まれたときにこの関数を実行します。
+    console.log('DOM fully loaded and parsed');//DOMの読み込みが完了したことをコンソールに出力します。
 
     const gameBoard = document.querySelector('.game-board');
     if (!gameBoard) return;
