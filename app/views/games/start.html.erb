@@ -128,7 +128,7 @@
       shuffleCards(); // ランダムに配置する
     }
 
-    function checkAllCardsMatched() {
+    function checkAllCardsMatched() {  //  カード要素にクリックイベントリスナーを追加します。
       if (matchedCards === cards.length) {
         setTimeout(() => {
           showFlashMessage('おめでとうございます！すべてのカードが一致しました！');
