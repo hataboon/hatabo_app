@@ -139,31 +139,36 @@
       }
     }
 
-    function handleCardClick(event) {
-      const card = event.currentTarget;
+    function handleCardClick(event) {  //カードクリックイベントを処理する関数です。
+                          // クリックイベントオブジェクトを表します。
+      const card = event.currentTarget; //クリックされたカード要素を取得します。
 
-      if (lockBoard || card.classList.contains('flipped')) return;
-
-      if (!card.dataset.card) {
+      if (lockBoard || card.classList.contains('flipped')) return;//ボードがロックされているか、カードがすでに裏返されている場合は関数を終了します。
+         //lockBoard: 他のカードが処理中であることを示すフラグ。
+         //card.classList.contains('flipped'): カードがすでに裏返されているかどうかを確認
+      if (!card.dataset.card) {//カードのデータ属性が存在しない場合はエラーメッセージを表示して関数を終了します。
+        // カードのデータ属性を取得
         console.error('Card data attribute is undefined:', card);
+        // エラーメッセージをコンソールに表示します。
         return;
       }
 
-      const cardData = JSON.parse(card.dataset.card);
-      console.log('Card clicked:', cardData);
+      const cardData = JSON.parse(card.dataset.card);//カードのデータ属性をJSON形式のオブジェクトに変換します。
+                     //JSON.parse: JSON文字列をJavaScriptのオブジェクトに変換します。
+      console.log('Card clicked:', cardData);//カードがクリックされたことをコンソールに表示します。
 
-      if (!cardData) {
-        console.error('Card data is undefined');
+      if (!cardData) {//カードデータが存在しない場合はエラーメッセージを表示して関数を終了します。
+        console.error('Card data is undefined');//エラーメッセージをコンソールに表示します。
         return;
       }
 
-      flipCard(card, cardData);
+      flipCard(card, cardData);//カードを裏返す関数を呼び出します。
 
-      if (!firstCard) {
-        firstCard = { element: card, data: cardData };
-      } else {
-        secondCard = { element: card, data: cardData };
-        lockBoard = true;
+      if (!firstCard) {//最初のカードが設定されていない場合は、現在のカードを最初のカードとして設定します。
+        firstCard = { element: card, data: cardData };//最初のカードの要素とデータを設定します。
+      } else {//すでに最初のカードが設定されている場合は、現在のカードを2枚目のカードとして設定します。
+        secondCard = { element: card, data: cardData };// 2枚目のカードの要素とデータを設定します。
+        lockBoard = true;//ボードをロックします
 
         fetch('/games/flip', {
           method: 'POST',
